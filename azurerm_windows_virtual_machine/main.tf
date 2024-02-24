@@ -68,6 +68,7 @@ resource "azurerm_windows_virtual_machine" "win_vm" {
   }
 }
 resource "azurerm_managed_disk" "data_disk" {
+  count = length(var.windows_virtualmachine.data_disk)
   name                 = ""
   location             = data.azurerm_resource_group.rg.location
   resource_group_name  = data.azurerm_resource_group.rg.name
