@@ -66,20 +66,21 @@ resource "azurerm_windows_virtual_machine" "win_vm" {
       storage_account_type = os_disk.value["storage_account_type"]
     }
   }
+  
 }
 resource "azurerm_managed_disk" "data_disk" {
-  count = length(var.windows_virtualmachine.data_disk)
-  name                 = ""
+  for_each = var.common_windowsVM.data_disk
+  name                 = each.value["name"]
   location             = data.azurerm_resource_group.rg.location
   resource_group_name  = data.azurerm_resource_group.rg.name
-  storage_account_type = "Standard_LRS"
+  storage_account_type = each.value["storage_account_type"]
   create_option        = "Empty"
-  disk_size_gb         = "1"
+  disk_size_gb         = each.value["disk_size_gb"]
 }
 resource "azurerm_virtual_machine_data_disk_attachment" "diskattachment" {
   managed_disk_id    = output.datadiskid
   virtual_machine_id = output.vmid
-  lun                = "10"
+  lun                = var.common_windowsVM.data_disk.lun
   caching            = "ReadWrite"
 }
 
