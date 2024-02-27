@@ -44,9 +44,10 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_virtual_machine" "vm" {
+  for_each = var.virtualmachine
   name                             = ""
-  location                         = ""
-  resource_group_name              = ""
+  location                         = data.azurerm_resource_group.rg.location
+  resource_group_name              = data.azurerm_resource_group.rg.name
   network_interface_ids            = [azurerm_network_interface.nic.id]
   vm_size                          = ""
   delete_os_disk_on_termination    = true
