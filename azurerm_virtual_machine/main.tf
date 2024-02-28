@@ -44,7 +44,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_virtual_machine" "vm" {
-  for_each = var.virtualmachine
+  for_each                         = var.virtualmachine
   name                             = ""
   location                         = data.azurerm_resource_group.rg.location
   resource_group_name              = data.azurerm_resource_group.rg.name
@@ -52,29 +52,41 @@ resource "azurerm_virtual_machine" "vm" {
   vm_size                          = ""
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
-  storage_image_reference {
-    publisher = ""
-    offer     = ""
-    sku       = ""
-    version   = ""
+  dynamic "storage_image_reference" {
+    for_each = var.virtualmachine.storage_image_reference
+    content {
+      publisher = storage_image_reference.value["publisher"]
+      offer     = storage_image_reference.value["offer"]
+      sku       = storage_image_reference.value["sku"]
+      version   = storage_image_reference.value["version"]
+    }
   }
-  storage_os_disk {
-    name              = ""
-    caching           = ""
-    create_option     = ""
-    managed_disk_type = ""
+  dynamic "storage_os_disk" {
+    for_each = var.virtualmachine.storage_os_disk
+    content {
+      name              = storage_os_disk.value["name"]
+      caching           = storage_os_disk.value["caching"]
+      create_option     = storage_os_disk.value["create_option"]
+      managed_disk_type = storage_os_disk.value["managed_data_type"]
+    }
   }
-  os_profile {
-    computer_name  = ""
-    admin_username = ""
-    admin_password = ""
+  dynamic "os_profile" {
+    for_each = var.virtualmachine.os_profile
+    content {
+      computer_name  = os_profile.value["computer_name"]
+      admin_username = os_profile.value["admin_username"]
+      admin_password = os_profile.value["admin_password"]
+    }
   }
-  storage_data_disk {
-    name              = ""
-    caching           = ""
-    create_option     = ""
-    disk_size_gb      = ""
-    lun               = ""
-    managed_disk_type = ""
+  dynamic "storage_data_disk" {
+    for_each = var.virtualmachine.storage_data_disk
+    content {
+      name              = storage_data_disk.value["name"]
+      caching           = storage_data_disk.value["caching"]
+      create_option     = storage_data_disk.value["create_option"]
+      disk_size_gb      = storage_data_disk.value["disk_size_gb"]
+      lun               = storage_data_disk.value["lun"]
+      managed_disk_type = storage_data_disk.value["managed_disk_type"]
+    }
   }
 }
