@@ -4,24 +4,23 @@
 #The existing azurerm_virtual_machine resource will continue to be available throughout the 3.x releases however is in a feature-frozen state to maintain compatibility - new functionality will instead be added to the azurerm_linux_virtual_machine and azurerm_windows_virtual_machine resources.
 #----------------------------------------------
 data "azurerm_resource_group" "rg" {
-  name     = ""
-  location = ""
+  name = var.common.resource_group_name
 }
 data "azurerm_virtual_network" "vnet" {
-  name                = ""
+  name                = var.common.virtual_network_name
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
 }
 data "azurerm_subnet" "snet" {
-  name                 = ""
-  virtual_network_name = ""
+  name                 = var.common.subnet_name
+  virtual_network_name = var.common.virtual_network_name
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 resource "azurerm_public_ip" "public_ip" {
   for_each            = var.public_ip
   name                = each.value["name"]
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
   allocation_method   = each.value["allocation_method"]
 }
 resource "azurerm_network_interface" "nic" {
@@ -45,13 +44,14 @@ resource "azurerm_network_interface" "nic" {
 
 resource "azurerm_virtual_machine" "vm" {
   for_each                         = var.virtualmachine
-  name                             = ""
+  name                             = each.value["name"]
   location                         = data.azurerm_resource_group.rg.location
   resource_group_name              = data.azurerm_resource_group.rg.name
-  network_interface_ids            = [azurerm_network_interface.nic.id]
-  vm_size                          = ""
-  delete_os_disk_on_termination    = true
-  delete_data_disks_on_termination = true
+  network_interface_ids            = [for nic in output.nic_id : nic.id] #[azurerm_network_interface.nic.id]
+  vm_size                          = each.value["vm_size"]
+  delete_os_disk_on_termination    = each.value["delete_os_disk_on_termination"]
+  delete_data_disks_on_termination = each.value["delete_data_disks_on_termination"]
+  depends_on = [ azurerm_network_interface.nic ]
   dynamic "storage_image_reference" {
     for_each = var.virtualmachine.storage_image_reference
     content {
