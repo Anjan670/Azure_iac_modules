@@ -52,8 +52,8 @@ resource "azurerm_frontdoor" "example" {
         https_port  = backend.value["https_port"]
       }
     }
-    load_balancing_name = "exampleLoadBalancingSettings1"
-    health_probe_name   = "exampleHealthProbeSetting1"
+    load_balancing_name = each.value.backend_pool["load_balancing_name"]
+    health_probe_name   = each.value.backend_pool["health_probe_name"]
   }
   dynamic "frontend_endpoint" {
     for_each = var.azure_frontdoor.frontend_endpoint
