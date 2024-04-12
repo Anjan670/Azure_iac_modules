@@ -2,7 +2,7 @@ data "azurerm_resource_group" "rg" {
   name = var.rg_name
 }
 resource "azurerm_frontdoor" "example" {
-  for_each = var.azure_frontdoor
+  for_each            = var.azure_frontdoor
   name                = each.value["name"]
   resource_group_name = data.azurerm_resource_group.rg.name
   dynamic "routing_rule" {
