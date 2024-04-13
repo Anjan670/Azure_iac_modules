@@ -16,5 +16,4 @@ resource "azurerm_log_analytics_workspace" "law" {
   internet_query_enabled             = each.value["internet_query_enabled"] == null ? null : each.value["internet_query_enabled"]
   reservation_capacity_in_gb_per_day = each.value["reservation_capacity_in_gb_per_day"] == null ? null : each.value["reservation_capacity_in_gb_per_day"]
   data_collection_rule_id            = each.value["data_collection_rule_id"] == null ? null : each.value["data_collection_rule_id"]
-  tags                               = each.value["tags"] == null ? null : each.value["tags"]
 }

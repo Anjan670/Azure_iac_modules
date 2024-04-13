@@ -1,3 +1,3 @@
 output "lgw_id" {
-  value = azurerm_log_analytics_workspace.law.id
+  value = [ for lag in azurerm_log_analytics_workspace.law : lag.workspace_id ]
 }

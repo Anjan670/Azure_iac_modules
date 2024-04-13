@@ -4,7 +4,7 @@ variable "resource_group" {
 }
 variable "log_analytics_workspace" {
   description = "log_analytics_workspace variables"
-  type = object({
+  type = map(object({
     name                               = string
     sku                                = string
     retention_in_days                  = optional(number)
@@ -17,5 +17,11 @@ variable "log_analytics_workspace" {
     reservation_capacity_in_gb_per_day = optional(string) #The capacity reservation level in GB for this workspace. Possible values are 100, 200, 300, 400, 500, 1000, 2000 and 5000.
     data_collection_rule_id            = optional(string)
     tags                               = optional(string)
-  })
+  }))
+  default = {
+    "one" = {
+      name = "value02"
+      sku = "PerGB2018"
+    }
+  }
 }

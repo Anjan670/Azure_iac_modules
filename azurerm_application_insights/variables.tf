@@ -4,7 +4,7 @@ variable "resource_group" {
 }
 variable "application_insights" {
   description = "application_insights details"
-  type = object({
+  type = map(object({
     name                                  = string
     application_type                      = string
     daily_data_cap_in_gb                  = optional(string)
@@ -17,5 +17,11 @@ variable "application_insights" {
     internet_ingestion_enabled            = optional(string)
     internet_query_enabled                = optional(string)
     force_customer_storage_for_profiler   = optional(bool)#(Optional) Should the Application Insights component force users to create their own storage account for profiling? Defaults to false 
-  })
+  }))
+  default = {
+    "one" = {
+      name = "name01"
+      application_type = "web"
+    }
+  }
 }
