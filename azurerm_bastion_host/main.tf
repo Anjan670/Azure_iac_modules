@@ -25,6 +25,6 @@ resource "azurerm_bastion_host" "bastion_host" {
   ip_configuration {
     name                 = "configuration"
     subnet_id            = data.azurerm_subnet.snet.id
-    public_ip_address_id = azurerm_public_ip.pip.id
+    public_ip_address_id = azurerm_public_ip.pip[each.key].id
   }
 }

@@ -20,6 +20,11 @@ variable "public_ip" {
     allocation_method = string
     sku               = string
   })
+  default = {
+    name = ""
+    allocation_method = "static"
+    sku = "standard"
+  }
 }
 variable "bastion_host_name" {
   description = "Bastion host details"
