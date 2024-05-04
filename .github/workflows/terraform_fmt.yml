@@ -1,0 +1,15 @@
+name: Terraform_Format
+on:
+  push:
+    branches:
+      - main
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the code
+        uses: actions/checkout@v4
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
