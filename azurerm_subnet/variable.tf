@@ -41,12 +41,12 @@ variable "common_vnet" {
 variable "subnet" {
   description = "Subnet to create"
   type = map(object({
-    name                    = string
-    address_prefixes        = string
+    name                                          = string
+    address_prefixes                              = string
     private_endpoint_network_policies_enabled     = optional(bool)
     private_link_service_network_policies_enabled = optional(bool)
-    service_endpoints       = optional(list(string))
-    service_endpoint_policy_ids = optional(list(string))
+    service_endpoints                             = optional(list(string))
+    service_endpoint_policy_ids                   = optional(list(string))
     delegation = optional(list(
       object({
         name = string
@@ -59,7 +59,7 @@ variable "subnet" {
   }))
   default = {
     "subnet01" = {
-      name = "subnet01"
+      name             = "subnet01"
       address_prefixes = "10.10.10.10/24"
       # Other properties...
       /*delegation = [

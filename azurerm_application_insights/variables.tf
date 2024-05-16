@@ -16,11 +16,11 @@ variable "application_insights" {
     local_authentication_disabled         = optional(string)
     internet_ingestion_enabled            = optional(string)
     internet_query_enabled                = optional(string)
-    force_customer_storage_for_profiler   = optional(bool)#(Optional) Should the Application Insights component force users to create their own storage account for profiling? Defaults to false 
+    force_customer_storage_for_profiler   = optional(bool) #(Optional) Should the Application Insights component force users to create their own storage account for profiling? Defaults to false 
   }))
   default = {
     "one" = {
-      name = "name01"
+      name             = "name01"
       application_type = "web"
     }
   }

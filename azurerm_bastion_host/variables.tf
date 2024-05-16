@@ -21,13 +21,13 @@ variable "public_ip" {
     sku               = string
   })
   default = {
-    name = ""
+    name              = ""
     allocation_method = "static"
-    sku = "standard"
+    sku               = "standard"
   }
 }
 variable "bastion_host_name" {
   description = "Bastion host details"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }

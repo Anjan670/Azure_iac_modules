@@ -66,10 +66,10 @@ resource "azurerm_windows_virtual_machine" "win_vm" {
       storage_account_type = os_disk.value["storage_account_type"]
     }
   }
-  
+
 }
 resource "azurerm_managed_disk" "data_disk" {
-  for_each = var.common_windowsVM.data_disk
+  for_each             = var.common_windowsVM.data_disk
   name                 = each.value["name"]
   location             = data.azurerm_resource_group.rg.location
   resource_group_name  = data.azurerm_resource_group.rg.name

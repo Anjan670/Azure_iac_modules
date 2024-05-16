@@ -51,7 +51,7 @@ resource "azurerm_virtual_machine" "vm" {
   vm_size                          = each.value["vm_size"]
   delete_os_disk_on_termination    = each.value["delete_os_disk_on_termination"]
   delete_data_disks_on_termination = each.value["delete_data_disks_on_termination"]
-  depends_on = [ azurerm_network_interface.nic ]
+  depends_on                       = [azurerm_network_interface.nic]
   dynamic "storage_image_reference" {
     for_each = var.virtualmachine.storage_image_reference
     content {

@@ -1,7 +1,7 @@
 variable "resource_group" {
   type        = string
   description = "Resource group name"
-  default = "rg-02"
+  default     = "rg-02"
 }
 variable "log_analytics_workspace" {
   description = "log_analytics_workspace variables"
@@ -17,7 +17,7 @@ variable "log_analytics_workspace" {
   default = {
     "one" = {
       name = "value02"
-      sku = "PerGB2018"
+      sku  = "PerGB2018"
     }
   }
 }
