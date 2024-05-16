@@ -13,3 +13,7 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
+      - name: Super-linter
+        uses: super-linter/super-linter@v6.5.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.LINT_TOKEN }}
