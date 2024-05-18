@@ -1,6 +1,5 @@
 name: Terraform_Format
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
