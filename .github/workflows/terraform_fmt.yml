@@ -22,4 +22,5 @@ jobs:
         uses: super-linter/super-linter@v6.5.0
         env:
           VALIDATE_TERRAFORM_FMT: true
+          VALIDATE_GITHUB_ACTIONS: true
           GITHUB_TOKEN: ${{ secrets.LINT_TOKEN }}
