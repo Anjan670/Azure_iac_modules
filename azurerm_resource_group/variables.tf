@@ -3,5 +3,6 @@ variable "rg_var" {
   type = object({
     name     = string
     location = string
+    tags     = map(string)
   })
 }
