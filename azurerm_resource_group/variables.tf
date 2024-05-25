@@ -4,3 +4,4 @@ variable "rg_var" {
     name     = string
     location = string
   })
+}
