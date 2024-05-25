@@ -1,17 +1,7 @@
 variable "rg_var" {
   description = "Resource group details"
-  type = map(object({
+  type = object({
     name     = string
     location = string
-  }))
-  default = {
-    "one" = {
-      name     = "rg1"
-      location = "eastus"
-    },
-    "two" = {
-      name     = "rg2"
-      location = "westus"
-    }
-  }
+  })
 }
