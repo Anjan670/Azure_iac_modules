@@ -1,9 +1,9 @@
 output "rgname" {
-  value = [for rg in azurerm_resource_group.rg : rg.name]
+  value = azurerm_resource_group.rg.name
 }
 output "rglocation" {
-  value = [for rg in azurerm_resource_group.rg : rg.location]
+  value = azurerm_resource_group.rg.location
 }
 output "rgid" {
-  value = [for rg in azurerm_resource_group.rg : rg.id]
+  value = azurerm_resource_group.rg.id
 }
