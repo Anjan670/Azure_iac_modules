@@ -24,7 +24,7 @@ resource "azurerm_network_security_group" "nsg" {
   tags = var.nsg.tags
 }
 resource "azurerm_virtual_network" "vnet" {
-  name                = var.vnet_subnet["name"]
+  name                = var.common["name"]
   location            = var.vnet_subnet["location"]
   resource_group_name = var.vnet_subnet["resource_group_name"]
   address_space       = var.vnet_subnet["address_space"]
