@@ -1,3 +1,10 @@
+variable "common" {
+  type = object({
+    name                = string
+    resource_group_name = string
+    location            = string
+  })
+}
 variable "nsg" {
   type = map(object({
     name                         = string

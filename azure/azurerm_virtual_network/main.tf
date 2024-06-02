@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "nsg" {
-  name                = "${data.azurerm_resource_group.rgname.name}_nsg"
-  location            = data.azurerm_resource_group.rgname.location
-  resource_group_name = data.azurerm_resource_group.rgname.name
+  name                = var.common["name"]
+  location            = var.common["location"]
+  resource_group_name = var.common["resource_group_name"]
 
   dynamic "security_rule" {
     for_each = var.nsg
