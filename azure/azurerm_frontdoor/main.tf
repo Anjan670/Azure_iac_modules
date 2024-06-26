@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name = var.rg_name
+  name = var.common
 }
 resource "azurerm_frontdoor" "example" {
   for_each            = var.azure_frontdoor

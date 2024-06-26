@@ -1,15 +1,15 @@
 data "azurerm_resource_group" "rg" {
-  for_each = var.common_appgateway
+  for_each = var.common
   name     = each.value["resource_group_name"]
 }
 data "azurerm_virtual_network" "vnet" {
-  for_each            = var.common_appgateway
+  for_each            = var.common
   name                = each.value["virtual_network_name"]
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 data "azurerm_subnet" "snet" {
-  for_each             = var.common_appgateway
+  for_each             = var.common
   name                 = each.value["subnet_name"]
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   resource_group_name  = data.azurerm_resource_group.rg.name

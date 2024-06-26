@@ -1,4 +1,4 @@
-variable "resource_group" {
+variable "common" {
   type        = string
   description = "Resource group name"
 }

@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name = var.resource_group
+  name = var.common
 }
 resource "azurerm_application_insights" "app_insights" {
   for_each                              = var.application_insights

@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name = var.resource_group
+  name = var.common
 }
 resource "azurerm_log_analytics_workspace" "law" {
   for_each                           = var.log_analytics_workspace

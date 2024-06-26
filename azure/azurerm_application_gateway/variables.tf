@@ -1,4 +1,4 @@
-variable "common_appgateway" {
+variable "common" {
   description = "value"
   type = object({
     resource_group_name  = string
