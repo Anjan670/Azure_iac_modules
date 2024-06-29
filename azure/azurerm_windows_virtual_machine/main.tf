@@ -17,8 +17,8 @@ data "azurerm_subnet" "snet" {
 resource "azurerm_public_ip" "public_ip" {
   for_each            = var.public_ip
   name                = each.value["name"]
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
   allocation_method   = each.value["allocation_method"]
 }
 resource "azurerm_network_interface" "nic" {
@@ -42,8 +42,8 @@ resource "azurerm_network_interface" "nic" {
 resource "azurerm_windows_virtual_machine" "win_vm" {
   for_each            = var.windows_virtualmachine
   name                = each.value["name"]
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
   size                = each.value["size"]
   admin_username      = each.value["admin_username"]
   admin_password      = each.value["admin_password"]
@@ -78,8 +78,8 @@ resource "azurerm_managed_disk" "data_disk" {
   disk_size_gb         = each.value["disk_size_gb"]
 }
 resource "azurerm_virtual_machine_data_disk_attachment" "diskattachment" {
-  managed_disk_id    = output.datadiskid
-  virtual_machine_id = output.vmid
+  managed_disk_id    = azurerm_managed_disk.data_disk.id
+  virtual_machine_id = azurerm_windows_virtual_machine.win_vm.id
   lun                = var.common_windowsVM.data_disk.lun
   caching            = "ReadWrite"
 }
